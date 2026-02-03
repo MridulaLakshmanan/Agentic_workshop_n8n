@@ -1,0 +1,133 @@
+{
+  "name": "2_Basic_Groq_Agent",
+  "nodes": [
+    {
+      "parameters": {
+        "public": true,
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.chatTrigger",
+      "typeVersion": 1.3,
+      "position": [
+        -432,
+        -64
+      ],
+      "id": "3e49c907-593f-4234-8a9d-c40041dfa68d",
+      "name": "When chat message received",
+      "webhookId": "8e4b9bb4-53c0-4993-8c16-2c6225eca9c0"
+    },
+    {
+      "parameters": {
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.agent",
+      "typeVersion": 2.2,
+      "position": [
+        -224,
+        -64
+      ],
+      "id": "4aac5809-cc84-4765-8910-b224d056df85",
+      "name": "AI Agent"
+    },
+    {
+      "parameters": {},
+      "type": "@n8n/n8n-nodes-langchain.toolCalculator",
+      "typeVersion": 1,
+      "position": [
+        112,
+        144
+      ],
+      "id": "b55271f4-5646-4933-b79f-d55b816eedc8",
+      "name": "Calculator"
+    },
+    {
+      "parameters": {},
+      "type": "@n8n/n8n-nodes-langchain.memoryBufferWindow",
+      "typeVersion": 1.3,
+      "position": [
+        -128,
+        144
+      ],
+      "id": "ac263c97-6a67-47ef-9014-45ab9827c38c",
+      "name": "Simple Memory"
+    },
+    {
+      "parameters": {
+        "model": "gemma2-9b-it",
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.lmChatGroq",
+      "typeVersion": 1,
+      "position": [
+        -368,
+        144
+      ],
+      "id": "55475533-491e-4ce1-a398-57e17b2591b2",
+      "name": "Groq Chat Model",
+      "credentials": {
+        "groqApi": {
+          "id": "5hc61xPcZCEspICG",
+          "name": "Groq account 2"
+        }
+      }
+    }
+  ],
+  "pinData": {},
+  "connections": {
+    "When chat message received": {
+      "main": [
+        [
+          {
+            "node": "AI Agent",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Calculator": {
+      "ai_tool": [
+        [
+          {
+            "node": "AI Agent",
+            "type": "ai_tool",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Simple Memory": {
+      "ai_memory": [
+        [
+          {
+            "node": "AI Agent",
+            "type": "ai_memory",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Groq Chat Model": {
+      "ai_languageModel": [
+        [
+          {
+            "node": "AI Agent",
+            "type": "ai_languageModel",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "active": false,
+  "settings": {
+    "executionOrder": "v1"
+  },
+  "versionId": "8d2891a0-0346-46b2-a2f2-48dbced333e4",
+  "meta": {
+    "templateCredsSetupCompleted": true,
+    "instanceId": "48ee55c1b723a2316aea7569ae4b594f6e74c56fc902780fd6b5ec8cffcd602d"
+  },
+  "id": "VTdogA1CgD0cNonq",
+  "tags": []
+}

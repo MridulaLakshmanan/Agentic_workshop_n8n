@@ -1,0 +1,199 @@
+{
+  "name": "4_Accounting_agent",
+  "nodes": [
+    {
+      "parameters": {
+        "public": true,
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.chatTrigger",
+      "typeVersion": 1.3,
+      "position": [
+        -416,
+        -64
+      ],
+      "id": "83979735-2a2b-4642-b954-7bae50fac4ec",
+      "name": "When chat message received",
+      "webhookId": "d06ab7e6-d3c6-41d6-af3f-2115c7e6bea0"
+    },
+    {
+      "parameters": {
+        "options": {
+          "systemMessage": "You are a helpful assistant. \n\nYou receive a chat message and save the following information in google sheet: Date:(YYYY/MM/DD), Item, Price, Vendor_Name, Personal/Business expense.\n\nDate is {{$now}}\n"
+        }
+      },
+      "type": "@n8n/n8n-nodes-langchain.agent",
+      "typeVersion": 2.2,
+      "position": [
+        -208,
+        -64
+      ],
+      "id": "1177bbac-286f-4f72-821c-bd97e25fbf6a",
+      "name": "AI Agent"
+    },
+    {
+      "parameters": {
+        "operation": "appendOrUpdate",
+        "documentId": {
+          "__rl": true,
+          "value": "1DPrkM4C3lHNTkgLSNuK8EjqfMyOg6i9T6OjZc8HIB2A",
+          "mode": "list",
+          "cachedResultName": "n8ndemo_data",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1DPrkM4C3lHNTkgLSNuK8EjqfMyOg6i9T6OjZc8HIB2A/edit?usp=drivesdk"
+        },
+        "sheetName": {
+          "__rl": true,
+          "value": "gid=0",
+          "mode": "list",
+          "cachedResultName": "Sheet1",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1DPrkM4C3lHNTkgLSNuK8EjqfMyOg6i9T6OjZc8HIB2A/edit#gid=0"
+        },
+        "columns": {
+          "mappingMode": "defineBelow",
+          "value": {
+            "Item": "={{ /*n8n-auto-generated-fromAI-override*/ $fromAI('Item', ``, 'string') }}",
+            "Price": "={{ /*n8n-auto-generated-fromAI-override*/ $fromAI('Price', ``, 'string') }}",
+            "Vendor_name": "={{ /*n8n-auto-generated-fromAI-override*/ $fromAI('Vendor_name', ``, 'string') }}",
+            "Personal/Business": "={{ /*n8n-auto-generated-fromAI-override*/ $fromAI('Personal_Business', ``, 'string') }}",
+            "Date": "={{ /*n8n-auto-generated-fromAI-override*/ $fromAI('Date__using_to_match_', ``, 'string') }}"
+          },
+          "matchingColumns": [
+            "Date"
+          ],
+          "schema": [
+            {
+              "id": "Date",
+              "displayName": "Date",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": false
+            },
+            {
+              "id": "Item",
+              "displayName": "Item",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "Price",
+              "displayName": "Price",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "Vendor_name",
+              "displayName": "Vendor_name",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "Personal/Business",
+              "displayName": "Personal/Business",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            }
+          ],
+          "attemptToConvertTypes": false,
+          "convertFieldsToString": false
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.googleSheetsTool",
+      "typeVersion": 4.7,
+      "position": [
+        -64,
+        144
+      ],
+      "id": "be77872f-6c0a-48c1-b2fc-635a8e379967",
+      "name": "Append or update row in sheet in Google Sheets",
+      "credentials": {
+        "googleSheetsOAuth2Api": {
+          "id": "uc9rwJYJ0PViM6bo",
+          "name": "Google Sheets account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "model": "gemma2-9b-it",
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.lmChatGroq",
+      "typeVersion": 1,
+      "position": [
+        -256,
+        160
+      ],
+      "id": "6d0b3e84-e4bd-45f4-8e19-1d16a63cdcf2",
+      "name": "Groq Chat Model",
+      "credentials": {
+        "groqApi": {
+          "id": "5hc61xPcZCEspICG",
+          "name": "Groq account 2"
+        }
+      }
+    }
+  ],
+  "pinData": {},
+  "connections": {
+    "When chat message received": {
+      "main": [
+        [
+          {
+            "node": "AI Agent",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Append or update row in sheet in Google Sheets": {
+      "ai_tool": [
+        [
+          {
+            "node": "AI Agent",
+            "type": "ai_tool",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Groq Chat Model": {
+      "ai_languageModel": [
+        [
+          {
+            "node": "AI Agent",
+            "type": "ai_languageModel",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "active": false,
+  "settings": {
+    "executionOrder": "v1"
+  },
+  "versionId": "dc2f27ab-1f87-4829-b3a4-ea970b5276ab",
+  "meta": {
+    "templateCredsSetupCompleted": true,
+    "instanceId": "48ee55c1b723a2316aea7569ae4b594f6e74c56fc902780fd6b5ec8cffcd602d"
+  },
+  "id": "Q4GVtnxUiwThGWT0",
+  "tags": []
+}
