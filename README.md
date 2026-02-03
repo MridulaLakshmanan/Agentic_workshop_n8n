@@ -70,6 +70,7 @@ Agentic_workshop_n8n/
 - **Excel / JSON** – Structured outputs  
 
 ---
+<img width="4032" height="3024" alt="image" src="https://github.com/user-attachments/assets/3b2d3bcb-0a13-4de0-9e30-11d6cae2ff9c" />
 
 ## 🔐 Credentials & Security
 
@@ -90,13 +91,6 @@ This project demonstrates the ability to:
 - Apply AI to real-world business problems
 - Follow security and best practices
 - Build scalable, extensible AI pipelines
-
----
-
-## 🧾 Resume-Ready Description
-
-> **Agentic AI Workflow Automation using n8n**  
-> Built multiple agent-based AI workflows using n8n, integrating OpenAI and Groq LLMs to automate resume screening, accounting analysis, and RAG-based chatbots. Designed end-to-end AI pipelines with structured outputs, secure credential handling, and decision-driven workflows.
 
 ---
 
